@@ -1,24 +1,30 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-export default function Square() {
-	return (
-	  <TouchableOpacity style={styles.container}>
-		<Text style={styles.text}>x</Text>
-	  </TouchableOpacity>
-	);
-  }
+export type SquarePropsType = {
+  value: 'X' | '0' | null;
+  onPress: () => void;
+};
+
+export default function Square(props: SquarePropsType) {
+  const { value, onPress } = props;
+  return (
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Text style={styles.text}>{value}</Text>
+    </TouchableOpacity>
+  );
+}
 
 const styles = StyleSheet.create({
-	container: {
-	  width: 80,
-	  height: 80,
-	  borderWidth: 2,
-	  borderColor: 'black',
-	  justifyContent: 'center',
-	  alignItems: 'center'
-	},
-	text: {
-	  fontSize: 24,
-	}
-  });
+  container: {
+    width: 80,
+    height: 80,
+    borderWidth: 2,
+    borderColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 24,
+  },
+});
