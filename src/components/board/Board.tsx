@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import Square, { SquarePropsType } from './Square';
+import Square, { SquarePropsType, Squares } from '../Square';
+import calculateWinner from './calculateWinner';
 
 const styles = StyleSheet.create({
   container: {
@@ -16,21 +17,22 @@ const styles = StyleSheet.create({
   },
 });
 
-type Squares = {
-  values: Array<SquarePropsType['value']>;
-  isXUser: boolean;
-};
-
 export default function Board() {
   const initialSquares: Squares = {
     values: Array(9).fill(null),
     isXUser: true,
   };
   const [squares, setSquares] = React.useState(initialSquares);
-  const status = `Next player: ${squares.isXUser ? 'X' : '0'}`;
+  const winner = calculateWinner(squares);
+  let status: string;
+  winner
+    ? (status = `Winner: ${winner}`)
+    : (status = 'Next player: ' + (squares.isXUser ? 'X' : '0'));
 
   const handlePress = (idx: number) => {
     const array_values = squares.values.slice(); // Copy squares
+    if (winner) return;
+
     if (array_values[idx] !== null) {
       array_values[idx] = null;
     } else {

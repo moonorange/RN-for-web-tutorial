@@ -6,6 +6,11 @@ export type SquarePropsType = {
   onPress: () => void;
 };
 
+export type Squares = {
+	values: Array<SquarePropsType['value']>;
+	isXUser: boolean;
+  };
+
 export default function Square(props: SquarePropsType) {
   const { value, onPress } = props;
   return (
