@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Button } from 'react-native';
 import Square, { SquarePropsType, Squares } from '../Square';
 import calculateWinner from './calculateWinner';
 
@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
   rowContainer: {
     flex: 1,
     flexDirection: 'row',
+  },
+  resetButton: {
+    marginVertical: 10,
+    width: 150,
   },
 });
 
@@ -50,6 +54,11 @@ export default function Board() {
     );
   };
 
+  const resetSquares = React.useCallback(
+    () => setSquares(initialSquares),
+    [setSquares, initialSquares]
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.status}>{status}</Text>
@@ -67,6 +76,9 @@ export default function Board() {
         {renderSquare(6)}
         {renderSquare(7)}
         {renderSquare(8)}
+      </View>
+      <View style={styles.resetButton}>
+        <Button title="Reset" onPress={resetSquares}></Button>
       </View>
     </View>
   );
